@@ -1,6 +1,6 @@
 project:
   type: website
-
+  output-dir: docs
 website:
   title: "carlybaretz.github.io"
   navbar:
@@ -17,3 +17,6 @@ format:
 
 editor: visual
 
+
+
+  
