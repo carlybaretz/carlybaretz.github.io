@@ -1,27 +1,28 @@
 ---
 title: "Carly Baretz"
+format: 
+  html: 
+    css: styles.css
 toc: false
 about: 
-   template: jolla
-   links:
-     - text: LinkedIn
-      href: https://www.linkedin.com/in/samanthacsik/
-     - text: GitHub
-       href: https://github.com/samanthacsik
-     - text: Email
-       href: mailto:scsik@ucsb.edu
+  template: jolla
+  image-shape: round
+  image-width: 17em
+  links:
+    - text: LinkedIn
+      href: https://www.linkedin.com/in/carly-baretz-61672430a/
+    - text: Github
+      href:
+    - text: Email
+      href: cbaretz@students.pitzer.edu
+      
+execute: 
+  message: false
+  warning: false
+  echo: false
+  include: true
 ---
+
+![](media/IMG_9953.jpeg){.round-image}
 
 I'm Carly Baretz, a sophomore at Pitzer College from New York City studying Human Centered Design and Data Science!
-
-```{r}
-1 + 1
-
-
-```
-
----
-
----
-
-# 

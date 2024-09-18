@@ -1,0 +1,31 @@
+------------------------------------------------------------------------
+tidy: Tidy Tuesday Analysis
+------------------------------------------------------------------------
+```{r}
+
+library("tidyverse")
+historical_spending <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2024/2024-02-13/historical_spending.csv')
+gifts_age <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2024/2024-02-13/gifts_age.csv')
+gifts_gender <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2024/2024-02-13/gifts_gender.csv')
+
+ggplot(data=gifts_age, aes(x= Age, y = Flowers))+ 
+  geom_point()+
+  ggtitle("Valentines Day Buying Habits and Age")
+
+
+```
+
+
+```{r}
+babynames <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-03-22/babynames.csv')
+
+babynames <- babynames %>% 
+ filter(n > 80000)
+
+ggplot(babynames, aes(x= "", y = prop, fill= name))+ 
+  geom_col()+
+  coord_polar(theta="y")+
+  ggtitle("2022 Baby Names for Names With More Than 80,000 Babies")
+
+```
+
