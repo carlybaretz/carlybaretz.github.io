@@ -1,8 +1,7 @@
 ---
 title: "Carly Baretz"
-format: 
-  html: 
-    css: styles.css
+
+  
 toc: false
 about: 
   template: jolla

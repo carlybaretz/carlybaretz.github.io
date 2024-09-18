@@ -3,6 +3,7 @@ tidy: Tidy Tuesday Analysis
 ------------------------------------------------------------------------
 ```{r}
 
+
 library("tidyverse")
 historical_spending <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2024/2024-02-13/historical_spending.csv')
 gifts_age <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2024/2024-02-13/gifts_age.csv')
