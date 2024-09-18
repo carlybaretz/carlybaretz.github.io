@@ -7,8 +7,12 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - href: resources.qmd 
-        text: Tidy Tuesday Analysis
+      - text: "Data Viz"
+        menu: 
+          - text: "Valentines Day"
+            href: valentines.html
+          - text: "Baby Names"
+            href: babynames.html
 
 format:
   html:
