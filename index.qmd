@@ -1,11 +1,27 @@
 ---
-title: "carlybaretz.github.io"
+title: "Carly Baretz"
+toc: false
+about: 
+   template: jolla
+   links:
+     - text: LinkedIn
+      href: https://www.linkedin.com/in/samanthacsik/
+     - text: GitHub
+       href: https://github.com/samanthacsik
+     - text: Email
+       href: mailto:scsik@ucsb.edu
 ---
 
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+I'm Carly Baretz, a sophomore at Pitzer College from New York City studying Human Centered Design and Data Science!
 
 ```{r}
 1 + 1
+
+
 ```
+
+---
+
+---
+
+# 
