@@ -12,7 +12,7 @@ about:
     - text: LinkedIn
       href: https://www.linkedin.com/in/carly-baretz-61672430a/
     - text: Github
-      href:
+      href: https://github.com/carlybaretz
     - text: Email
       href: cbaretz@students.pitzer.edu
       
