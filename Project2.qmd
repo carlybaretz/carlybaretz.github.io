@@ -1,0 +1,90 @@
+---
+title: "Project 2"
+description: |
+author: Carly Baretz 
+date: October 2, 2024
+format: html
+
+execute:
+  warning: false
+  message: false
+---
+
+Data can be found from Tidy Tuesday: (https://github.com/rfordatascience/tidytuesday/tree/master/data)
+
+
+```{r}
+library(tidyverse)
+
+netflix_titles <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-04-20/netflix_titles.csv')
+
+netflix_titles$genre_count <- str_count(netflix_titles$listed_in, ",") + 1
+
+
+genres <- netflix_titles |>
+  separate_rows(listed_in, sep = ",")|>
+  group_by(listed_in) |>
+  summarise(count = n()) |>
+  arrange(desc(count))
+
+# Plot the top 10 genres by count
+ggplot(genres[1:10,], aes(x = reorder(listed_in, -count), y = count)) +
+  geom_bar(stat = "identity", fill = "blue") +
+  labs(title = "Top 10 Genres by Number of Titles",
+       x = "Genre", y = "Count") +
+  theme_minimal() +
+  coord_flip()
+
+```
+The bar graph above shows the top 10 genres on Netflix by amount of titles. You can see that Netflix largest genre by which is has the most titles is international movies, with Netflix having upwards of 2,500 international movies. 
+
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(stringr)
+
+
+netflix_titles$title_word_count <- str_count(netflix_titles$title, "\\b\\w+\\b")
+netflix_titles$contains_common_word <- str_detect(netflix_titles$title, "\\b(Love|Story|Adventure)\\b")
+
+
+title_word_distribution <- netflix_titles |>
+  group_by(title_word_count, contains_common_word) |>
+  summarise(count = n()) |>
+  arrange(desc(count))
+
+
+ggplot(title_word_distribution, aes(x = factor(title_word_count), y = count, fill = contains_common_word)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Distribution of Netflix Titles by Word Count and Common Words (Love, Story, Adventure)",
+       x = "Number of Words in Title", y = "Count of Titles",
+       fill = "Contains 'Love', 'Story', or 'Adventure'") +
+  theme_minimal()
+
+```
+This graph shows the distribution of number of words in titles on Netflix, showing that most of the titles on Netflix are 2 words long. Additionally, the graph shows the prevalence of titles with 3 common words: love, story, and adventure. The graph shows that most of the titles do not contain "love," "story," or "adventure," but it shows that if the words do appear, they show up in titles ranging from 1 word long to 13 words long. 
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(stringr)
+
+
+netflix_titles$year_added <- str_extract(netflix_titles$date_added, "\\d{4}")
+
+netflix_titles <- netflix_titles |>
+  filter(!is.na(year_added))
+
+titles_by_year <- netflix_titles |>
+  group_by(year_added) |>
+  summarise(count = n()) |>
+  arrange(year_added)
+
+ggplot(titles_by_year, aes(x = year_added, y = count)) +
+  geom_bar(stat = "identity", fill = "skyblue") +
+  labs(title = "Number of Netflix Titles Added by Year",
+       x = "Year", y = "Number of Titles") +
+  theme_minimal()
+
+```
