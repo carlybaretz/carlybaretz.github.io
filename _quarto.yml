@@ -13,14 +13,8 @@ website:
             href: valentines.html
           - text: "Baby Names"
             href: babynames.html
-      - text: "Project 2"
-        menu: 
-          - text: "Project 2"
-            href: Project2.html
-       - text: "Project 3"
-        menu: 
-          - text: "Project 3"
-          - href: Project3.html
+      - Project2.qmd
+      - Project3.qmd
 
 format:
   html:
