@@ -1,0 +1,86 @@
+---
+title: "Project3"
+---
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(openintro)
+data("mlb")
+```
+
+Research question: do pitchers on the Mets or pitchers on the Yankees make more money?
+
+I plan on finding the average salary of baseball players in 2010, written in terms of millions / 100,000s - 400 = 400,000 Data from open intro MLB
+
+```{r}
+# Load necessary libraries
+
+# Load the mlb dataset
+data("mlb")
+
+# Filter dataset for Mets and Yankees pitchers
+mlb_pitchers <- mlb |>
+  filter(team %in% c("New York Mets", "New York Yankees") & position == "Pitcher") |>
+  select(team, salary) |>
+  drop_na()
+
+mlb_pitchers
+```
+
+```{r}
+# Calculate the observed difference in average salary between Mets and Yankees
+obs_diff <- mlb_pitchers |>
+  group_by(team) |>
+  reframe(obs_ave = mean(salary)) |>
+  reframe(obs_ave_diff = diff(obs_ave)) |>
+  pull(obs_ave_diff)
+
+# Check if obs_diff was calculated correctly
+print(obs_diff)
+
+```
+
+```{r}
+# Define the permutation function to calculate permuted differences in average salary
+perm_data <- function(rep, data) {
+  data |>
+    mutate(salary_perm = sample(salary, replace = FALSE)) |>
+    group_by(team) |>
+    reframe(perm_ave = mean(salary_perm)) |>
+    reframe(perm_ave_diff = diff(perm_ave), rep = rep)
+}
+```
+
+```{r}
+# Set the seed for reproducibility
+set.seed(47)
+
+# Run the permutation test 500 times
+perm_stats <- map(1:500, perm_data, data = mlb_pitchers) |>
+  list_rbind()
+
+perm_stats
+```
+
+```{r}
+# Check if perm_ave_diff values are NA
+print(summary(perm_stats$perm_ave_diff))
+
+# Calculate p-value for the average difference
+p_value <- mean(perm_stats$perm_ave_diff > obs_diff)
+
+p_value
+
+# Output the p-value
+cat("P-value for the observed average difference:", p_value, "\n")
+
+# Plot the permutation distribution and observed difference with adjusted binning and limits
+perm_stats |>
+  ggplot(aes(x = perm_ave_diff)) + 
+  geom_histogram(bins = 50, fill = "lightblue", color = "black") + 
+  geom_vline(xintercept = obs_diff, color = "red", linetype = "dashed") +
+  labs(title = "Permutation Test: Difference in Mean Salary (Mets vs. Yankees Pitchers)",
+       x = "Difference in Permuted Mean Salary", y = "Frequency") +
+  theme_minimal()
+```
