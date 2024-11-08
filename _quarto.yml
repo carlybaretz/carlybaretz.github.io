@@ -16,7 +16,7 @@ website:
       - text: "Project 2"
         menu: 
           - text: "Project 2"
-          - href: Project2.html
+            href: Project2.html
        - text: "Project 3"
         menu: 
           - text: "Project 3"
