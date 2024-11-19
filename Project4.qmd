@@ -1,0 +1,82 @@
+---
+title: "Project 4"
+---
+
+```{r}
+library(mdsr)
+library(dbplyr)
+library(DBI)
+```
+
+```{r}
+library(RMariaDB)
+library(tidyverse)
+
+con_wai <- dbConnect(
+  MariaDB(), host = "scidb.smith.edu",
+  user = "waiuser", password = "smith_waiDB", 
+  dbname = "wai"
+)
+Measurements <- tbl(con_wai, "Measurements")
+PI_Info <- tbl(con_wai, "PI_Info")
+Subjects <- tbl(con_wai, "Subjects")
+
+# collect(Measurements)
+
+```
+
+```{sql}
+#| connection: con_wai
+SHOW TABLES;
+```
+```{sql}
+#| connection: con_wai
+SELECT *
+FROM Measurements
+LIMIT 0, 5;
+```
+
+```{sql}
+#| connection: con_wai
+SELECT *
+FROM PI_Info
+LIMIT 0, 50;
+```
+```{sql}
+#| connection: con_wai
+SELECT * FROM PI_Info 
+WHERE Identifier = "Abur_2014"; 
+```
+```{sql}
+#| connection: con_wai
+SELECT * FROM Measurements 
+WHERE Identifier = "Abur_2014"; 
+```
+```{sql}
+#| connection: con_wai
+#| output.var: "graph"
+
+SELECT Identifier, Frequency, LOG10(Frequency) AS log_frequency,  AVG(Absorbance) AS mean_absorbance 
+FROM Measurements
+WHERE Identifier IN ("Abur_2014", "Feeney_2017", "Groon_2015" ,"Lewis_2015", "Liu_2008"
+"Rosowski_2012", "Shahnaz_2006", "Shaver_2013" , "Sun_2016", "Voss_1994", "Voss_2010", "Werner_2010" ) AND Frequency > 200 AND Frequency < 8000
+GROUP BY Identifier, Frequency;  
+
+
+```
+
+```{r}
+graph |>
+ggplot(aes (x=Frequency, y = mean_absorbance, 
+   color =  Identifier,
+   group = Identifier)) +
+  geom_line()+
+  scale_x_log10()
+
+```
+
+
+```{}
+
+```
+```
