@@ -950,8 +950,220 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<pre><code></code></pre>
-<p>```</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a> <span class="kw">SELECT</span> p.<span class="kw">Identifier</span>, p.<span class="dt">Year</span>, p.AuthorsShortList, </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> SubjectNumber, Ear) <span class="kw">AS</span> ear_you </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> PI_Info <span class="kw">AS</span> p </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> Measurements <span class="kw">AS</span> m <span class="kw">ON</span> m.<span class="kw">Identifier</span> <span class="op">=</span> p.<span class="kw">Identifier</span> </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> p.<span class="kw">Identifier</span> <span class="kw">IN</span> (<span class="ot">"Abur_2014"</span>, <span class="ot">"Feeney_2017"</span>, <span class="ot">"Groon_2015"</span> ,<span class="ot">"Lewis_2015"</span>, <span class="ot">"Liu_2008"</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="ot">"Rosowski_2012"</span>, <span class="ot">"Shahnaz_2006"</span>, <span class="ot">"Shaver_2013"</span> , <span class="ot">"Sun_2016"</span>, <span class="ot">"Voss_1994"</span>, <span class="ot">"Voss_2010"</span>, <span class="ot">"Werner_2010"</span> ) <span class="kw">AND</span> Frequency <span class="op">&gt;</span> <span class="dv">200</span> <span class="kw">AND</span> Frequency <span class="op">&lt;</span> <span class="dv">8000</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> <span class="kw">Identifier</span>, Instrument;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Displaying records 1 - 10</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Identifier</th>
+<th style="text-align: right;">Year</th>
+<th style="text-align: left;">AuthorsShortList</th>
+<th style="text-align: right;">ear_you</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Abur_2014</td>
+<td style="text-align: right;">2014</td>
+<td style="text-align: left;">Abur et al.</td>
+<td style="text-align: right;">14</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Feeney_2017</td>
+<td style="text-align: right;">2017</td>
+<td style="text-align: left;">Feeney et al.</td>
+<td style="text-align: right;">57</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Groon_2015</td>
+<td style="text-align: right;">2015</td>
+<td style="text-align: left;">Groon et al.</td>
+<td style="text-align: right;">21</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Lewis_2015</td>
+<td style="text-align: right;">2015</td>
+<td style="text-align: left;">Lewis and Neely</td>
+<td style="text-align: right;">14</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Shahnaz_2006</td>
+<td style="text-align: right;">2006</td>
+<td style="text-align: left;">Shahnaz and Bork</td>
+<td style="text-align: right;">237</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Shaver_2013</td>
+<td style="text-align: right;">2013</td>
+<td style="text-align: left;">Shaver and Sun</td>
+<td style="text-align: right;">48</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Sun_2016</td>
+<td style="text-align: right;">2016</td>
+<td style="text-align: left;">Sun</td>
+<td style="text-align: right;">84</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Voss_1994</td>
+<td style="text-align: right;">1994</td>
+<td style="text-align: left;">Voss and Allen</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Voss_2010</td>
+<td style="text-align: right;">2010</td>
+<td style="text-align: left;">Voss et al.</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Werner_2010</td>
+<td style="text-align: right;">2010</td>
+<td style="text-align: left;">Werner et al.</td>
+<td style="text-align: right;">962</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a> <span class="kw">SELECT</span> p.<span class="kw">Identifier</span>, <span class="dt">Year</span>, AuthorsShortList, </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> SubjectNumber, Ear) <span class="kw">AS</span> ears,</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">CONCAT</span>(AuthorsShortList, <span class="ot">" ("</span> , <span class="dt">year</span>, <span class="ot">") "</span> , <span class="ot">"N="</span> , </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> SubjectNumber, Ear), <span class="ot">"; "</span>, Instrument) <span class="kw">AS</span> Legend </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> PI_Info <span class="kw">AS</span> p </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> Measurements <span class="kw">AS</span> m <span class="kw">ON</span> m.<span class="kw">Identifier</span> <span class="op">=</span> p.<span class="kw">Identifier</span> </span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> p.<span class="kw">Identifier</span> <span class="kw">IN</span> (<span class="ot">"Abur_2014"</span>, <span class="ot">"Feeney_2017"</span>, <span class="ot">"Groon_2015"</span> ,<span class="ot">"Lewis_2015"</span>, <span class="ot">"Liu_2008"</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="ot">"Rosowski_2012"</span>, <span class="ot">"Shahnaz_2006"</span>, <span class="ot">"Shaver_2013"</span> , <span class="ot">"Sun_2016"</span>, <span class="ot">"Voss_1994"</span>, <span class="ot">"Voss_2010"</span>, <span class="ot">"Werner_2010"</span> ) <span class="kw">AND</span> Frequency <span class="op">&gt;</span> <span class="dv">200</span> <span class="kw">AND</span> Frequency <span class="op">&lt;</span> <span class="dv">8000</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> <span class="kw">Identifier</span>, Instrument;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Displaying records 1 - 10</caption>
+<colgroup>
+<col style="width: 16%">
+<col style="width: 6%">
+<col style="width: 21%">
+<col style="width: 6%">
+<col style="width: 48%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Identifier</th>
+<th style="text-align: right;">Year</th>
+<th style="text-align: left;">AuthorsShortList</th>
+<th style="text-align: right;">ears</th>
+<th style="text-align: left;">Legend</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Abur_2014</td>
+<td style="text-align: right;">2014</td>
+<td style="text-align: left;">Abur et al.</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">Abur et al.&nbsp;(2014) N=14; HearID</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Feeney_2017</td>
+<td style="text-align: right;">2017</td>
+<td style="text-align: left;">Feeney et al.</td>
+<td style="text-align: right;">57</td>
+<td style="text-align: left;">Feeney et al.&nbsp;(2017) N=57; preTitan</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Groon_2015</td>
+<td style="text-align: right;">2015</td>
+<td style="text-align: left;">Groon et al.</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: left;">Groon et al.&nbsp;(2015) N=21; Other</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Lewis_2015</td>
+<td style="text-align: right;">2015</td>
+<td style="text-align: left;">Lewis and Neely</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">Lewis and Neely (2015) N=14; Other</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Shahnaz_2006</td>
+<td style="text-align: right;">2006</td>
+<td style="text-align: left;">Shahnaz and Bork</td>
+<td style="text-align: right;">237</td>
+<td style="text-align: left;">Shahnaz and Bork (2006) N=237; HearID</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Shaver_2013</td>
+<td style="text-align: right;">2013</td>
+<td style="text-align: left;">Shaver and Sun</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: left;">Shaver and Sun (2013) N=48; preTitan</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Sun_2016</td>
+<td style="text-align: right;">2016</td>
+<td style="text-align: left;">Sun</td>
+<td style="text-align: right;">84</td>
+<td style="text-align: left;">Sun (2016) N=84; preTitan</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Voss_1994</td>
+<td style="text-align: right;">1994</td>
+<td style="text-align: left;">Voss and Allen</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Voss and Allen (1994) N=10; preHearID</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Voss_2010</td>
+<td style="text-align: right;">2010</td>
+<td style="text-align: left;">Voss et al.</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">Voss et al.&nbsp;(2010) N=12; HearID</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Werner_2010</td>
+<td style="text-align: right;">2010</td>
+<td style="text-align: left;">Werner et al.</td>
+<td style="text-align: right;">962</td>
+<td style="text-align: left;">Werner et al.&nbsp;(2010) N=962; Other</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-output.var="graph2">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a> <span class="kw">SELECT</span> p.<span class="kw">Identifier</span>, p.<span class="dt">Year</span>, p.AuthorsShortList, Frequency,</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a> LOG10(Frequency) <span class="kw">AS</span> log_frequency, <span class="fu">AVG</span>(Absorbance) <span class="kw">AS</span> mean_absorbance,</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> SubjectNumber, Ear) <span class="kw">AS</span> ear_u,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a> <span class="fu">CONCAT</span>(AuthorsShortList, <span class="ot">" ("</span> , <span class="dt">year</span>, <span class="ot">") "</span>, <span class="ot">"N="</span>, <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> SubjectNumber, Ear), <span class="ot">"; "</span>, Instrument) <span class="kw">AS</span> legend</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> PI_Info <span class="kw">AS</span> p </span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> Measurements <span class="kw">AS</span> m <span class="kw">ON</span> m.<span class="kw">Identifier</span> <span class="op">=</span> p.<span class="kw">Identifier</span> </span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> p.<span class="kw">Identifier</span> <span class="kw">IN</span> (<span class="ot">"Abur_2014"</span>, <span class="ot">"Feeney_2017"</span>, <span class="ot">"Groon_2015"</span> ,<span class="ot">"Lewis_2015"</span>, <span class="ot">"Liu_2008"</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="ot">"Rosowski_2012"</span>, <span class="ot">"Shahnaz_2006"</span>, <span class="ot">"Shaver_2013"</span> , <span class="ot">"Sun_2016"</span>, <span class="ot">"Voss_1994"</span>, <span class="ot">"Voss_2010"</span>, <span class="ot">"Werner_2010"</span> ) <span class="kw">AND</span> Frequency <span class="op">&gt;</span> <span class="dv">200</span> <span class="kw">AND</span> Frequency <span class="op">&lt;</span> <span class="dv">8000</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> <span class="kw">Identifier</span>, Instrument, Frequency;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>graph2 <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span> (<span class="at">x=</span>Frequency, <span class="at">y =</span> mean_absorbance, </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>   <span class="at">color =</span>  legend,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>   <span class="at">group =</span> legend)) <span class="sc">+</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Project4_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
 

@@ -29,6 +29,7 @@ Subjects <- tbl(con_wai, "Subjects")
 #| connection: con_wai
 SHOW TABLES;
 ```
+
 ```{sql}
 #| connection: con_wai
 SELECT *
@@ -42,16 +43,19 @@ SELECT *
 FROM PI_Info
 LIMIT 0, 50;
 ```
+
 ```{sql}
 #| connection: con_wai
 SELECT * FROM PI_Info 
 WHERE Identifier = "Abur_2014"; 
 ```
+
 ```{sql}
 #| connection: con_wai
 SELECT * FROM Measurements 
 WHERE Identifier = "Abur_2014"; 
 ```
+
 ```{sql}
 #| connection: con_wai
 #| output.var: "graph"
@@ -75,8 +79,52 @@ ggplot(aes (x=Frequency, y = mean_absorbance,
 
 ```
 
-
-```{}
+```{sql}
+#| connection: con_wai
+ SELECT p.Identifier, p.Year, p.AuthorsShortList, 
+ COUNT(DISTINCT SubjectNumber, Ear) AS ear_you 
+FROM PI_Info AS p 
+LEFT JOIN Measurements AS m ON m.Identifier = p.Identifier 
+WHERE p.Identifier IN ("Abur_2014", "Feeney_2017", "Groon_2015" ,"Lewis_2015", "Liu_2008"
+"Rosowski_2012", "Shahnaz_2006", "Shaver_2013" , "Sun_2016", "Voss_1994", "Voss_2010", "Werner_2010" ) AND Frequency > 200 AND Frequency < 8000
+GROUP BY Identifier, Instrument;
+```
+```{sql}
+#| connection: con_wai
+ SELECT p.Identifier, Year, AuthorsShortList, 
+ COUNT(DISTINCT SubjectNumber, Ear) AS ears,
+ CONCAT(AuthorsShortList, " (" , year, ") " , "N=" , 
+ COUNT(DISTINCT SubjectNumber, Ear), "; ", Instrument) AS Legend 
+FROM PI_Info AS p 
+LEFT JOIN Measurements AS m ON m.Identifier = p.Identifier 
+WHERE p.Identifier IN ("Abur_2014", "Feeney_2017", "Groon_2015" ,"Lewis_2015", "Liu_2008"
+"Rosowski_2012", "Shahnaz_2006", "Shaver_2013" , "Sun_2016", "Voss_1994", "Voss_2010", "Werner_2010" ) AND Frequency > 200 AND Frequency < 8000
+GROUP BY Identifier, Instrument;
 
 ```
+
+
+
+```{sql}
+#| connection: con_wai
+#| output.var: "graph2"
+ SELECT p.Identifier, p.Year, p.AuthorsShortList, Frequency,
+ LOG10(Frequency) AS log_frequency, AVG(Absorbance) AS mean_absorbance,
+ COUNT(DISTINCT SubjectNumber, Ear) AS ear_u,
+ CONCAT(AuthorsShortList, " (" , year, ") ", "N=", COUNT(DISTINCT SubjectNumber, Ear), "; ", Instrument) AS legend
+FROM PI_Info AS p 
+LEFT JOIN Measurements AS m ON m.Identifier = p.Identifier 
+WHERE p.Identifier IN ("Abur_2014", "Feeney_2017", "Groon_2015" ,"Lewis_2015", "Liu_2008"
+"Rosowski_2012", "Shahnaz_2006", "Shaver_2013" , "Sun_2016", "Voss_1994", "Voss_2010", "Werner_2010" ) AND Frequency > 200 AND Frequency < 8000
+GROUP BY Identifier, Instrument, Frequency;
+```
+
+```{r}
+graph2 |>
+ggplot(aes (x=Frequency, y = mean_absorbance, 
+   color =  legend,
+   group = legend)) +
+  geom_line()+
+  scale_x_log10()
+
 ```
