@@ -1,5 +1,14 @@
 ---
 title: "Project 4"
+description: |
+author: Carly Baretz 
+date: November 21, 2024
+format: html
+
+execute:
+  warning: false
+  message: false
+---
 ---
 
 ```{r}

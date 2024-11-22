@@ -6,6 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Carly Baretz">
+<meta name="dcterms.date" content="2024-11-21">
 
 <title>Carly Baretz - Project 4</title>
 <style>
@@ -179,7 +181,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div class="quarto-title-meta column-page">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Carly Baretz </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 21, 2024</p>
+    </div>
+  </div>
   
     
   </div>
@@ -189,6 +203,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<hr>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mdsr)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dbplyr)</span>
@@ -196,34 +211,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RMariaDB)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.1
-✔ purrr     1.0.2     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::ident()  masks dbplyr::ident()
-✖ dplyr::lag()    masks stats::lag()
-✖ dplyr::sql()    masks dbplyr::sql()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>con_wai <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">MariaDB</span>(), <span class="at">host =</span> <span class="st">"scidb.smith.edu"</span>,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">user =</span> <span class="st">"waiuser"</span>, <span class="at">password =</span> <span class="st">"smith_waiDB"</span>, </span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">dbname =</span> <span class="st">"wai"</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>Measurements <span class="ot">&lt;-</span> <span class="fu">tbl</span>(con_wai, <span class="st">"Measurements"</span>)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>PI_Info <span class="ot">&lt;-</span> <span class="fu">tbl</span>(con_wai, <span class="st">"PI_Info"</span>)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>Subjects <span class="ot">&lt;-</span> <span class="fu">tbl</span>(con_wai, <span class="st">"Subjects"</span>)</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># collect(Measurements)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>con_wai <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">MariaDB</span>(), <span class="at">host =</span> <span class="st">"scidb.smith.edu"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">user =</span> <span class="st">"waiuser"</span>, <span class="at">password =</span> <span class="st">"smith_waiDB"</span>, </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">dbname =</span> <span class="st">"wai"</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>Measurements <span class="ot">&lt;-</span> <span class="fu">tbl</span>(con_wai, <span class="st">"Measurements"</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>PI_Info <span class="ot">&lt;-</span> <span class="fu">tbl</span>(con_wai, <span class="st">"PI_Info"</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>Subjects <span class="ot">&lt;-</span> <span class="fu">tbl</span>(con_wai, <span class="st">"Subjects"</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># collect(Measurements)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>SHOW <span class="kw">TABLES</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>SHOW <span class="kw">TABLES</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>7 records</caption>
@@ -259,9 +261,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> Measurements</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">0</span>, <span class="dv">5</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> Measurements</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">0</span>, <span class="dv">5</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>5 records</caption>
@@ -399,9 +401,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>::: {.cell}</p>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> PI_Info</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">0</span>, <span class="dv">50</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> PI_Info</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">0</span>, <span class="dv">50</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="knitsql-table">
 
 
@@ -626,8 +628,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>:::</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> PI_Info </span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="kw">Identifier</span> <span class="op">=</span> <span class="ot">"Abur_2014"</span>; </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> PI_Info </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="kw">Identifier</span> <span class="op">=</span> <span class="ot">"Abur_2014"</span>; </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>1 records</caption>
@@ -700,8 +702,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> Measurements </span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="kw">Identifier</span> <span class="op">=</span> <span class="ot">"Abur_2014"</span>; </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> Measurements </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="kw">Identifier</span> <span class="op">=</span> <span class="ot">"Abur_2014"</span>; </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>Displaying records 1 - 10</caption>
@@ -929,19 +931,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-output.var="graph">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">Identifier</span>, Frequency, LOG10(Frequency) <span class="kw">AS</span> log_frequency,  <span class="fu">AVG</span>(Absorbance) <span class="kw">AS</span> mean_absorbance </span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> Measurements</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="kw">Identifier</span> <span class="kw">IN</span> (<span class="ot">"Abur_2014"</span>, <span class="ot">"Feeney_2017"</span>, <span class="ot">"Groon_2015"</span> ,<span class="ot">"Lewis_2015"</span>, <span class="ot">"Liu_2008"</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="ot">"Rosowski_2012"</span>, <span class="ot">"Shahnaz_2006"</span>, <span class="ot">"Shaver_2013"</span> , <span class="ot">"Sun_2016"</span>, <span class="ot">"Voss_1994"</span>, <span class="ot">"Voss_2010"</span>, <span class="ot">"Werner_2010"</span> ) <span class="kw">AND</span> Frequency <span class="op">&gt;</span> <span class="dv">200</span> <span class="kw">AND</span> Frequency <span class="op">&lt;</span> <span class="dv">8000</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> <span class="kw">Identifier</span>, Frequency;  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">Identifier</span>, Frequency, LOG10(Frequency) <span class="kw">AS</span> log_frequency,  <span class="fu">AVG</span>(Absorbance) <span class="kw">AS</span> mean_absorbance </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> Measurements</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="kw">Identifier</span> <span class="kw">IN</span> (<span class="ot">"Abur_2014"</span>, <span class="ot">"Feeney_2017"</span>, <span class="ot">"Groon_2015"</span> ,<span class="ot">"Lewis_2015"</span>, <span class="ot">"Liu_2008"</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="ot">"Rosowski_2012"</span>, <span class="ot">"Shahnaz_2006"</span>, <span class="ot">"Shaver_2013"</span> , <span class="ot">"Sun_2016"</span>, <span class="ot">"Voss_1994"</span>, <span class="ot">"Voss_2010"</span>, <span class="ot">"Werner_2010"</span> ) <span class="kw">AND</span> Frequency <span class="op">&gt;</span> <span class="dv">200</span> <span class="kw">AND</span> Frequency <span class="op">&lt;</span> <span class="dv">8000</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> <span class="kw">Identifier</span>, Frequency;  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>graph <span class="sc">|&gt;</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span> (<span class="at">x=</span>Frequency, <span class="at">y =</span> mean_absorbance, </span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>   <span class="at">color =</span>  Identifier,</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>   <span class="at">group =</span> Identifier)) <span class="sc">+</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>graph <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span> (<span class="at">x=</span>Frequency, <span class="at">y =</span> mean_absorbance, </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>   <span class="at">color =</span>  Identifier,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>   <span class="at">group =</span> Identifier)) <span class="sc">+</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -951,13 +953,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a> <span class="kw">SELECT</span> p.<span class="kw">Identifier</span>, p.<span class="dt">Year</span>, p.AuthorsShortList, </span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> SubjectNumber, Ear) <span class="kw">AS</span> ear_you </span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> PI_Info <span class="kw">AS</span> p </span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> Measurements <span class="kw">AS</span> m <span class="kw">ON</span> m.<span class="kw">Identifier</span> <span class="op">=</span> p.<span class="kw">Identifier</span> </span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> p.<span class="kw">Identifier</span> <span class="kw">IN</span> (<span class="ot">"Abur_2014"</span>, <span class="ot">"Feeney_2017"</span>, <span class="ot">"Groon_2015"</span> ,<span class="ot">"Lewis_2015"</span>, <span class="ot">"Liu_2008"</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="ot">"Rosowski_2012"</span>, <span class="ot">"Shahnaz_2006"</span>, <span class="ot">"Shaver_2013"</span> , <span class="ot">"Sun_2016"</span>, <span class="ot">"Voss_1994"</span>, <span class="ot">"Voss_2010"</span>, <span class="ot">"Werner_2010"</span> ) <span class="kw">AND</span> Frequency <span class="op">&gt;</span> <span class="dv">200</span> <span class="kw">AND</span> Frequency <span class="op">&lt;</span> <span class="dv">8000</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> <span class="kw">Identifier</span>, Instrument;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a> <span class="kw">SELECT</span> p.<span class="kw">Identifier</span>, p.<span class="dt">Year</span>, p.AuthorsShortList, </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> SubjectNumber, Ear) <span class="kw">AS</span> ear_you </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> PI_Info <span class="kw">AS</span> p </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> Measurements <span class="kw">AS</span> m <span class="kw">ON</span> m.<span class="kw">Identifier</span> <span class="op">=</span> p.<span class="kw">Identifier</span> </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> p.<span class="kw">Identifier</span> <span class="kw">IN</span> (<span class="ot">"Abur_2014"</span>, <span class="ot">"Feeney_2017"</span>, <span class="ot">"Groon_2015"</span> ,<span class="ot">"Lewis_2015"</span>, <span class="ot">"Liu_2008"</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="ot">"Rosowski_2012"</span>, <span class="ot">"Shahnaz_2006"</span>, <span class="ot">"Shaver_2013"</span> , <span class="ot">"Sun_2016"</span>, <span class="ot">"Voss_1994"</span>, <span class="ot">"Voss_2010"</span>, <span class="ot">"Werner_2010"</span> ) <span class="kw">AND</span> Frequency <span class="op">&gt;</span> <span class="dv">200</span> <span class="kw">AND</span> Frequency <span class="op">&lt;</span> <span class="dv">8000</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> <span class="kw">Identifier</span>, Instrument;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>Displaying records 1 - 10</caption>
@@ -1035,15 +1037,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a> <span class="kw">SELECT</span> p.<span class="kw">Identifier</span>, <span class="dt">Year</span>, AuthorsShortList, </span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> SubjectNumber, Ear) <span class="kw">AS</span> ears,</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">CONCAT</span>(AuthorsShortList, <span class="ot">" ("</span> , <span class="dt">year</span>, <span class="ot">") "</span> , <span class="ot">"N="</span> , </span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> SubjectNumber, Ear), <span class="ot">"; "</span>, Instrument) <span class="kw">AS</span> Legend </span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> PI_Info <span class="kw">AS</span> p </span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> Measurements <span class="kw">AS</span> m <span class="kw">ON</span> m.<span class="kw">Identifier</span> <span class="op">=</span> p.<span class="kw">Identifier</span> </span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> p.<span class="kw">Identifier</span> <span class="kw">IN</span> (<span class="ot">"Abur_2014"</span>, <span class="ot">"Feeney_2017"</span>, <span class="ot">"Groon_2015"</span> ,<span class="ot">"Lewis_2015"</span>, <span class="ot">"Liu_2008"</span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="ot">"Rosowski_2012"</span>, <span class="ot">"Shahnaz_2006"</span>, <span class="ot">"Shaver_2013"</span> , <span class="ot">"Sun_2016"</span>, <span class="ot">"Voss_1994"</span>, <span class="ot">"Voss_2010"</span>, <span class="ot">"Werner_2010"</span> ) <span class="kw">AND</span> Frequency <span class="op">&gt;</span> <span class="dv">200</span> <span class="kw">AND</span> Frequency <span class="op">&lt;</span> <span class="dv">8000</span></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> <span class="kw">Identifier</span>, Instrument;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a> <span class="kw">SELECT</span> p.<span class="kw">Identifier</span>, <span class="dt">Year</span>, AuthorsShortList, </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> SubjectNumber, Ear) <span class="kw">AS</span> ears,</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">CONCAT</span>(AuthorsShortList, <span class="ot">" ("</span> , <span class="dt">year</span>, <span class="ot">") "</span> , <span class="ot">"N="</span> , </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> SubjectNumber, Ear), <span class="ot">"; "</span>, Instrument) <span class="kw">AS</span> Legend </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> PI_Info <span class="kw">AS</span> p </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> Measurements <span class="kw">AS</span> m <span class="kw">ON</span> m.<span class="kw">Identifier</span> <span class="op">=</span> p.<span class="kw">Identifier</span> </span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> p.<span class="kw">Identifier</span> <span class="kw">IN</span> (<span class="ot">"Abur_2014"</span>, <span class="ot">"Feeney_2017"</span>, <span class="ot">"Groon_2015"</span> ,<span class="ot">"Lewis_2015"</span>, <span class="ot">"Liu_2008"</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="ot">"Rosowski_2012"</span>, <span class="ot">"Shahnaz_2006"</span>, <span class="ot">"Shaver_2013"</span> , <span class="ot">"Sun_2016"</span>, <span class="ot">"Voss_1994"</span>, <span class="ot">"Voss_2010"</span>, <span class="ot">"Werner_2010"</span> ) <span class="kw">AND</span> Frequency <span class="op">&gt;</span> <span class="dv">200</span> <span class="kw">AND</span> Frequency <span class="op">&lt;</span> <span class="dv">8000</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> <span class="kw">Identifier</span>, Instrument;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>Displaying records 1 - 10</caption>
@@ -1139,23 +1141,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-output.var="graph2">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a> <span class="kw">SELECT</span> p.<span class="kw">Identifier</span>, p.<span class="dt">Year</span>, p.AuthorsShortList, Frequency,</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a> LOG10(Frequency) <span class="kw">AS</span> log_frequency, <span class="fu">AVG</span>(Absorbance) <span class="kw">AS</span> mean_absorbance,</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> SubjectNumber, Ear) <span class="kw">AS</span> ear_u,</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a> <span class="fu">CONCAT</span>(AuthorsShortList, <span class="ot">" ("</span> , <span class="dt">year</span>, <span class="ot">") "</span>, <span class="ot">"N="</span>, <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> SubjectNumber, Ear), <span class="ot">"; "</span>, Instrument) <span class="kw">AS</span> legend</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> PI_Info <span class="kw">AS</span> p </span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> Measurements <span class="kw">AS</span> m <span class="kw">ON</span> m.<span class="kw">Identifier</span> <span class="op">=</span> p.<span class="kw">Identifier</span> </span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> p.<span class="kw">Identifier</span> <span class="kw">IN</span> (<span class="ot">"Abur_2014"</span>, <span class="ot">"Feeney_2017"</span>, <span class="ot">"Groon_2015"</span> ,<span class="ot">"Lewis_2015"</span>, <span class="ot">"Liu_2008"</span></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="ot">"Rosowski_2012"</span>, <span class="ot">"Shahnaz_2006"</span>, <span class="ot">"Shaver_2013"</span> , <span class="ot">"Sun_2016"</span>, <span class="ot">"Voss_1994"</span>, <span class="ot">"Voss_2010"</span>, <span class="ot">"Werner_2010"</span> ) <span class="kw">AND</span> Frequency <span class="op">&gt;</span> <span class="dv">200</span> <span class="kw">AND</span> Frequency <span class="op">&lt;</span> <span class="dv">8000</span></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> <span class="kw">Identifier</span>, Instrument, Frequency;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a> <span class="kw">SELECT</span> p.<span class="kw">Identifier</span>, p.<span class="dt">Year</span>, p.AuthorsShortList, Frequency,</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a> LOG10(Frequency) <span class="kw">AS</span> log_frequency, <span class="fu">AVG</span>(Absorbance) <span class="kw">AS</span> mean_absorbance,</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> SubjectNumber, Ear) <span class="kw">AS</span> ear_u,</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a> <span class="fu">CONCAT</span>(AuthorsShortList, <span class="ot">" ("</span> , <span class="dt">year</span>, <span class="ot">") "</span>, <span class="ot">"N="</span>, <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> SubjectNumber, Ear), <span class="ot">"; "</span>, Instrument) <span class="kw">AS</span> legend</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> PI_Info <span class="kw">AS</span> p </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> Measurements <span class="kw">AS</span> m <span class="kw">ON</span> m.<span class="kw">Identifier</span> <span class="op">=</span> p.<span class="kw">Identifier</span> </span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> p.<span class="kw">Identifier</span> <span class="kw">IN</span> (<span class="ot">"Abur_2014"</span>, <span class="ot">"Feeney_2017"</span>, <span class="ot">"Groon_2015"</span> ,<span class="ot">"Lewis_2015"</span>, <span class="ot">"Liu_2008"</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="ot">"Rosowski_2012"</span>, <span class="ot">"Shahnaz_2006"</span>, <span class="ot">"Shaver_2013"</span> , <span class="ot">"Sun_2016"</span>, <span class="ot">"Voss_1994"</span>, <span class="ot">"Voss_2010"</span>, <span class="ot">"Werner_2010"</span> ) <span class="kw">AND</span> Frequency <span class="op">&gt;</span> <span class="dv">200</span> <span class="kw">AND</span> Frequency <span class="op">&lt;</span> <span class="dv">8000</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> <span class="kw">Identifier</span>, Instrument, Frequency;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>graph2 <span class="sc">|&gt;</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span> (<span class="at">x=</span>Frequency, <span class="at">y =</span> mean_absorbance, </span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>   <span class="at">color =</span>  legend,</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>   <span class="at">group =</span> legend)) <span class="sc">+</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>graph2 <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span> (<span class="at">x=</span>Frequency, <span class="at">y =</span> mean_absorbance, </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>   <span class="at">color =</span>  legend,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>   <span class="at">group =</span> legend)) <span class="sc">+</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1165,8 +1167,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> </span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> Subjects</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> Subjects</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>Displaying records 1 - 10</caption>
@@ -1334,14 +1336,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-output.var="graphforQ2">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> Sex, Frequency, <span class="fu">AVG</span>(Absorbance) <span class="kw">AS</span> mean_absorbance, m.<span class="kw">Identifier</span> </span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> Subjects <span class="kw">AS</span> s </span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="kw">RIGHT</span> <span class="kw">JOIN</span> Measurements <span class="kw">AS</span> m <span class="kw">ON</span> m.<span class="kw">Identifier</span> <span class="op">=</span> s.<span class="kw">Identifier</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> m.<span class="kw">Identifier</span> <span class="op">=</span> <span class="ot">"Aithal_2013"</span> <span class="kw">AND</span> Frequency <span class="op">&gt;</span> <span class="dv">200</span> <span class="kw">AND</span> Frequency <span class="op">&lt;</span> <span class="dv">8000</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> m.<span class="kw">Identifier</span>, Frequency, Sex;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> Sex, Frequency, <span class="fu">AVG</span>(Absorbance) <span class="kw">AS</span> mean_absorbance, m.<span class="kw">Identifier</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> Subjects <span class="kw">AS</span> s </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="kw">RIGHT</span> <span class="kw">JOIN</span> Measurements <span class="kw">AS</span> m <span class="kw">ON</span> m.<span class="kw">Identifier</span> <span class="op">=</span> s.<span class="kw">Identifier</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> m.<span class="kw">Identifier</span> <span class="op">=</span> <span class="ot">"Aithal_2013"</span> <span class="kw">AND</span> Frequency <span class="op">&gt;</span> <span class="dv">200</span> <span class="kw">AND</span> Frequency <span class="op">&lt;</span> <span class="dv">8000</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> m.<span class="kw">Identifier</span>, Frequency, Sex;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>graphforQ2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>graphforQ2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      Sex Frequency mean_absorbance  Identifier
 1    Male       250       0.5442342 Aithal_2013
@@ -1377,13 +1379,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>graphforQ2 <span class="sc">|&gt;</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">"Female"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span> (<span class="at">x=</span>Frequency, <span class="at">y =</span> mean_absorbance, </span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>   <span class="at">color =</span>  Sex,</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>   <span class="at">group =</span> Sex)) <span class="sc">+</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>graphforQ2 <span class="sc">|&gt;</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">"Female"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span> (<span class="at">x=</span>Frequency, <span class="at">y =</span> mean_absorbance, </span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>   <span class="at">color =</span>  Sex,</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>   <span class="at">group =</span> Sex)) <span class="sc">+</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1393,13 +1395,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>graphforQ2 <span class="sc">|&gt;</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">"Male"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span> (<span class="at">x=</span>Frequency, <span class="at">y =</span> mean_absorbance, </span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>   <span class="at">color =</span>  Sex,</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>   <span class="at">group =</span> Sex)) <span class="sc">+</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>graphforQ2 <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">"Male"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span> (<span class="at">x=</span>Frequency, <span class="at">y =</span> mean_absorbance, </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>   <span class="at">color =</span>  Sex,</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>   <span class="at">group =</span> Sex)) <span class="sc">+</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
