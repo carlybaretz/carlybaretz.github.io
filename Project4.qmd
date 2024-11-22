@@ -9,7 +9,6 @@ execute:
   warning: false
   message: false
 ---
----
 
 ```{r}
 library(mdsr)
@@ -98,6 +97,7 @@ WHERE p.Identifier IN ("Abur_2014", "Feeney_2017", "Groon_2015" ,"Lewis_2015", "
 "Rosowski_2012", "Shahnaz_2006", "Shaver_2013" , "Sun_2016", "Voss_1994", "Voss_2010", "Werner_2010" ) AND Frequency > 200 AND Frequency < 8000
 GROUP BY Identifier, Instrument;
 ```
+
 ```{sql}
 #| connection: con_wai
  SELECT p.Identifier, Year, AuthorsShortList, 
@@ -111,8 +111,6 @@ WHERE p.Identifier IN ("Abur_2014", "Feeney_2017", "Groon_2015" ,"Lewis_2015", "
 GROUP BY Identifier, Instrument;
 
 ```
-
-
 
 ```{sql}
 #| connection: con_wai
@@ -138,7 +136,6 @@ ggplot(aes (x=Frequency, y = mean_absorbance,
 
 ```
 
-
 ```{sql}
 #| connection: con_wai
 SELECT * 
@@ -158,8 +155,9 @@ GROUP BY m.Identifier, Frequency, Sex;
 ```
 
 ```{r}
-graphforQ2
+head(graphforQ2)
 ```
+
 ```{r}
 graphforQ2 |>
   filter(Sex == "Female") |>
@@ -170,6 +168,7 @@ ggplot(aes (x=Frequency, y = mean_absorbance,
   scale_x_log10()
 
 ```
+
 ```{r}
 graphforQ2 |>
   filter(Sex == "Male") |>
@@ -180,4 +179,5 @@ ggplot(aes (x=Frequency, y = mean_absorbance,
   scale_x_log10()
 
 ```
-both male and female are the same values ! 
+
+both male and female are the same values !

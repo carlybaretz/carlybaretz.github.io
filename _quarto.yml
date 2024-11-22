@@ -15,7 +15,8 @@ website:
             href: babynames.html
       - Project2.qmd
       - Project3.qmd
-      - Project4.qmd
+      - text:"Project 4"
+        href: Project4.html
 
 format:
   html:
