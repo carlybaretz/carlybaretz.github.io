@@ -4,6 +4,7 @@ execute:
   warning: false
   message: false
 ---
+
 ```{r}
 
 
@@ -20,7 +21,3 @@ ggplot(data=gifts_age, aes(x= Age, y = Flowers))+
 ```
 
 Where I found the tidy Tuesday (https://github.com/rfordatascience/tidytuesday/tree/master/data)
-
-
-
-
