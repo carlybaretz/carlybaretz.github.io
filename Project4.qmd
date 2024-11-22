@@ -128,3 +128,47 @@ ggplot(aes (x=Frequency, y = mean_absorbance,
   scale_x_log10()
 
 ```
+
+
+```{sql}
+#| connection: con_wai
+SELECT * 
+FROM Subjects
+
+```
+
+```{sql}
+#| connection: con_wai
+#| output.var: "graphforQ2"
+SELECT Sex, Frequency, AVG(Absorbance) AS mean_absorbance, m.Identifier 
+FROM Subjects AS s 
+RIGHT JOIN Measurements AS m ON m.Identifier = s.Identifier
+WHERE m.Identifier = "Aithal_2013" AND Frequency > 200 AND Frequency < 8000
+GROUP BY m.Identifier, Frequency, Sex;
+
+```
+
+```{r}
+graphforQ2
+```
+```{r}
+graphforQ2 |>
+  filter(Sex == "Female") |>
+ggplot(aes (x=Frequency, y = mean_absorbance, 
+   color =  Sex,
+   group = Sex)) +
+  geom_line() +
+  scale_x_log10()
+
+```
+```{r}
+graphforQ2 |>
+  filter(Sex == "Male") |>
+ggplot(aes (x=Frequency, y = mean_absorbance, 
+   color =  Sex,
+   group = Sex)) +
+  geom_line() +
+  scale_x_log10()
+
+```
+both male and female are the same values ! 
