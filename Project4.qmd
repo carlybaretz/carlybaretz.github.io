@@ -179,7 +179,7 @@ GROUP BY m.Identifier, Frequency, Sex;
 ```{r}
 head(graphforQ2)
 ```
-This tabe shoes the frequency, mean absorbance, and sex of participants for one 
+This table shoes the frequency, mean absorbance, and sex of participants for one 
 specific study, Aithal 2013. 
 ```{r}
 graphforQ2 |>
