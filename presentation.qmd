@@ -1,7 +1,7 @@
 ---
-title: "Carly Presentation"
-author: "Carly Baretz"
-subtitle: "December 6, 2024 "
+title: "Carly's presentation"
+author: "your name"
+subtitle: "date of presentation"
 format:
   revealjs:
     scrollable: true
@@ -14,7 +14,7 @@ execute:
   message: false
 ---
 
-##testing
-is this going to make a slide??
+## test 
+is this gonna work??
 
-## slide 2
+## test 2 

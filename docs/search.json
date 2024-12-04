@@ -82,5 +82,19 @@
     "title": "Carly Presentation",
     "section": "slide 2",
     "text": "slide 2"
+  },
+  {
+    "objectID": "presentation.html#test",
+    "href": "presentation.html#test",
+    "title": "Carly’s presentation",
+    "section": "test",
+    "text": "test\nis this gonna work??"
+  },
+  {
+    "objectID": "presentation.html#test-2",
+    "href": "presentation.html#test-2",
+    "title": "Carly’s presentation",
+    "section": "test 2",
+    "text": "test 2"
   }
 ]
