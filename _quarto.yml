@@ -18,7 +18,7 @@ website:
       - text: "Project 4"
         href: Project4.html
       - text: "presentation"
-        href: presentation.html
+        href: presentation.qmd
 
 format:
   html:

@@ -1,0 +1,17 @@
+{
+  "hash": "a486cf2bb74b2960baf431e3c24dabc4",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Baby Names\"\nexecute:\n  warning: false\n  message: false\n---\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tidyverse)\nbabynames <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-03-22/babynames.csv')\n\nbabynames <- babynames %>% \n filter(n > 80000)\n\nggplot(babynames, aes(x= \"\", y = prop, fill= name))+ \n  geom_col()+\n  coord_polar(theta=\"y\")+\n  ggtitle(\"2022 Baby Names for Names With More Than 80,000 Babies\")\n```\n\n::: {.cell-output-display}\n![](babynames_files/figure-html/unnamed-chunk-1-1.png){width=672}\n:::\n:::\n\n\nWhere I found the tidy Tuesday (https://github.com/rfordatascience/tidytuesday/tree/master/data)\n",
+    "supporting": [
+      "babynames_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
