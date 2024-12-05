@@ -124,6 +124,9 @@ pattern_summary
 Next I made a bar plot to visualize the amount of Netlfix titles with the given pattern. 
 
 ```{r}
+
+#| echo: false 
+#| eval: true 
 # Prepare data for visualization
 pattern_data <- pattern_summary |>
   pivot_longer(cols = everything(), names_to = "Pattern", values_to = "Count") |>
@@ -146,7 +149,9 @@ ggplot(pattern_data, aes(x = reorder(Pattern, Count), y = Count, fill = Pattern)
   theme_minimal()
 
 ```
-Finally, I made a bar plot to visualize the spread of Netflix titles containing years, and the amount of titles with names a year. 
+Finally, I made a bar plot to visualize the distribution of years mentioned in Netflix titles. 
+
+the spread of Netflix titles containing years, and the amount of titles with names a year. 
 ```{r}
 
 # Extract titles with years and summarize their counts
