@@ -2,41 +2,45 @@
 title: "Project 3"
 ---
 
+In professional sports, salary disparities can reveal team strategies and budget allocations. This analysis focuses on the salaries of pitchers from the New York Mets and New York Yankees during the 2010 MLB season. By comparing their average salaries, I aim to understand if either team compensates its pitchers significantly more. I used the MLB dataset from the openintro package, which provides salary data for players across all MLB teams in 2010
+
 ```{r}
 library(tidyverse)
 library(ggplot2)
 library(openintro)
+library(dplyr)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+```{r}
 data("mlb")
 ```
 
-Research Question: Do pitchers on the Mets or pitchers on the Yankees make more money?
-
-Using the MLB dataset, which shows the salary of every player on a Major League Baseball team in 2010, I plan first selecting all the pitchers on the Mets, and then all the pitchers on the Yankees. After, I plan on finding the average salary and the difference in salaries between the two teams. After I will do a permutation test and plot the permutation distribution and observed difference.
-
+First I filtered the dataset to only include salaries of pitchers from the Mets and the Yankees. 
 ```{r}
-
 mlb_pitchers <- mlb |>
-  filter(team %in% c("New York Mets", "New York Yankees") & position == "Pitcher") |>
-  select(team, salary) |>
-  drop_na()
-
+  filter((team == "New York Mets" | team == "New York Yankees") & position == "Pitcher" & !is.na(salary)) |>
+  select(team, salary)
 mlb_pitchers
 ```
 
-The table above shows just the salaries of pitchers on the Mets and pitchers on the Yankees.
-
+Then I calculated the observed difference in average salary between the two teams.
 ```{r}
 # Calculate the observed difference in average salary between Mets and Yankees
 obs_diff <- mlb_pitchers |>
   group_by(team) |>
-  reframe(obs_ave = mean(salary)) |>
-  reframe(obs_ave_diff = diff(obs_ave)) |>
+  summarize(obs_ave = mean(salary)) |>
+  summarize(obs_ave_diff = diff(obs_ave)) |>
   pull(obs_ave_diff)
 
 # Check if obs_diff was calculated correctly
-print(obs_diff)
+obs_diff
 
 ```
+
+Next I simulated 500 permutations to determine if the observed difference is statistically significant under the null hypothesis. 
+
+This table, perm_stats, displays the results of 500 permutations of the salary data between Mets and Yankees pitchers, showing the calculated differences in average salary (perm_ave_diff) for each permutation. Each row represents a single permutation, providing a simulated difference under the null hypothesis to help assess the significance of the observed salary difference.
 
 ```{r}
 # Define the permutation function to calculate permuted differences in average salary
@@ -44,13 +48,9 @@ perm_data <- function(rep, data) {
   data |>
     mutate(salary_perm = sample(salary, replace = FALSE)) |>
     group_by(team) |>
-    reframe(perm_ave = mean(salary_perm)) |>
-    reframe(perm_ave_diff = diff(perm_ave), rep = rep)
+    summarize(perm_ave = mean(salary_perm)) |>
+    summarize(perm_ave_diff = diff(perm_ave), rep = rep)
 }
-```
-
-```{r}
-
 set.seed(47)
 
 perm_stats <- map(1:500, perm_data, data = mlb_pitchers) |>
@@ -59,34 +59,36 @@ perm_stats <- map(1:500, perm_data, data = mlb_pitchers) |>
 perm_stats
 ```
 
-This table, perm_stats, displays the results of 500 permutations of the salary data between Mets and Yankees pitchers, showing the calculated differences in average salary (perm_ave_diff) for each permutation. Each row represents a single permutation, providing a simulated difference under the null hypothesis to help assess the significance of the observed salary difference.
+Next I made a histogram to visualize the permuted salary differences between Mets and Yankees pitchers, with a red dashed line marking the observed difference.
 
 ```{r}
-print(summary(perm_stats$perm_ave_diff))
-
-p_value <- mean(perm_stats$perm_ave_diff > obs_diff)
-
-p_value
-
-cat("P-value for the observed average difference:", p_value, "\n")
-
-perm_stats |>
-  ggplot(aes(x = perm_ave_diff)) + 
-  geom_histogram(bins = 50, fill = "lightblue", color = "black") + 
+# Plot the permutation distribution with the observed difference
+ggplot(perm_stats, aes(x = perm_ave_diff)) +
+  geom_histogram(bins = 50, fill = "lightblue", color = "black") +
   geom_vline(xintercept = obs_diff, color = "red", linetype = "dashed") +
-  labs(title = "Permutation Test: Difference in Mean Salary (Mets vs. Yankees Pitchers)",
-       x = "Difference in Permuted Mean Salary", y = "Frequency") +
-  theme_minimal()
+  labs(
+    title = "Permutation Test: Difference in Mean Salary (Mets vs. Yankees Pitchers)",
+    x = "Difference in Permuted Mean Salary",
+    y = "Frequency",
+    caption = "Source: OpenIntro MLB Dataset"
+  ) 
+ 
 ```
 
 This histogram provides descriptive statistics for the distribution of permuted mean salary differences between Mets and Yankees pitchers, showing the range and central tendency of values generated under the null hypothesis. The p-value indicates the proportion of permuted differences that exceed the observed difference, and the histogram visualizes this distribution, with a red line marking the observed difference for comparison.
 
-In this analysis, I conducted a permutation test to determine if there is a significant difference in average salary between pitchers on the Mets and Yankees using the mlb dataset from the openintro package. First, I calculated the observed difference in average salary of pitchers between the two teams. Then, I defined a permutation function that randomly shuffles the salaries across teams to simulate the null hypothesis, calculating the difference in mean salary for each permutation. Finally, I repeated this process 500 times to build a distribution of permuted differences, compared the observed difference to this distribution, and computed a p-value to assess significance, visualizing the results in a histogram.
+In this analysis, I conducted a permutation test to determine if there is a significant difference in average salary between pitchers on the Mets and Yankees using the mlb dataset from the openintro package. I began by calculating the observed difference in average salary of pitchers between the two teams. Then, I defined a permutation function that randomly shuffles the salaries across teams to simulate the null hypothesis, calculating the difference in mean salary for each permutation. Finally, I repeated this process 500 times to build a distribution of permuted differences, compared the observed difference to this distribution, and computed a p-value to assess significance, visualizing the results in a histogram. This analysis examines the salaries of pitchers from the New York Mets and New York Yankees in the 2010 Major League Baseball season. The population to which these results apply is the pitchers on these two teams during this season.
 
-Pitchers on the Mets have a higher average salary than pitchers on the Yankees by about \$2,548,385.
+Pitchers on the Mets have a higher average salary than pitchers on the Yankees by about \$2,548,385. 
+
+The null hypothesis is a claim about the hypothetical population in which there is no systematic difference in mean salary between these teams' pitchers. While this dataset is limited to 2010, and results cannot be generalized across other seasons or teams without additional data, it provides insight into salary practices for pitchers on two high-profile MLB teams during this year.
 
 However, the p-value of 0.198 from the permutation test suggests that this difference isn't statistically significant. In other words, the observed difference could reasonably occur by chance in about 20% of random permutations. So, while the Mets pitchers have a slightly higher average salary in this dataset, we don't have strong evidence to conclude that this difference is meaningful or consistent.
 
 \*In the dataset, salaries are represented in thousands. For example, a value of 400 corresponds to a salary of \$400,000, and a value of 20144 represents \$20,144,000.
 
-This dataset came from the openintro package, mlb. "Salary data for Major League Baseball (2010)" https://openintrostat.github.io/openintro/reference/mlb.html
+The data used in this analysis is from the mlb dataset in the openintro R package, which provides data for educational and statistical learning purposes. The dataset contains salary information for Major League Baseball players during the 2010 season.
+
+The OpenIntro team likely sourced this data from publicly available records, such as MLB salary disclosures or sports journalism databases (e.g., Baseball-Reference or USA Today’s Baseball Salary Database). These sources are generally reliable for reporting salaries in professional sports.
+
+However, it is important to note that the dataset represents a single year and does not include other forms of compensation, such as bonuses or endorsements, which could impact total player earning. https://openintrostat.github.io/openintro/reference/mlb.html

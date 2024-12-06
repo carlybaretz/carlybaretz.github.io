@@ -5,18 +5,54 @@ execute:
   message: false
 ---
 
+Names carry cultural and historical significance, reflecting societal trends and personal preferences. This analysis examines the popularity of baby names in the United States using data sourced from the Social Security Administration (SSA), as provided by the Tidy Tuesday project (March 2022). I'll explore the most popular names with over 80,000 instances recorded in a year and visualize their proportions.
+
 ```{r}
-library(tidyverse)
-babynames <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-03-22/babynames.csv')
-
-babynames <- babynames %>% 
- filter(n > 80000)
-
-ggplot(babynames, aes(x= "", y = prop, fill= name))+ 
-  geom_col()+
-  coord_polar(theta="y")+
-  ggtitle("2022 Baby Names for Names With More Than 80,000 Babies")
-
+library(tidyverse) # Load necessary libraries
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) # Suppress warnings and messages for a cleaner website
 ```
 
-Where I found the tidy Tuesday (https://github.com/rfordatascience/tidytuesday/tree/master/data)
+```{r}
+# Load the dataset 
+babynames <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-03-22/babynames.csv', show_col_types = FALSE)
+```
+
+To start I want to begin by exploring some of the key variables in the dataset.
+
+```{r}
+
+head(babynames)
+
+# Summarize key metrics
+babynames |>
+  summarize(
+    total_records = n(),
+    unique_names = n_distinct(name),
+    earliest_year = min(year),
+    latest_year = max(year)
+  )
+```
+
+Then I filtered he dataset for names with over 80,000 occurrences and visualized their proportions.
+
+```{r}
+# Filter for names with more than 80,000 instances
+babynames <- babynames |>
+  filter(n > 80000)
+
+# Create a polar bar chart
+ggplot(babynames, aes(x = "", y = prop, fill = name)) +
+  geom_col() +
+  coord_polar(theta = "y") +
+  labs(
+    title = "Proportion of Popular Baby Names (Over 80,000 Instances)",
+    x = NULL,
+    y = "Proportion",
+    fill = "Name",
+    caption = "Source: SSA via Tidy Tuesday (March 2022)"
+  ) 
+```
+
+This analysis explored trends in U.S. baby names using data from the Social Security Administration (SSA). It focused on identifying the most popular names, specifically those with over 80,000 occurrences. Visualizations highlighted the dominance of specific names. For instance, a polar bar chart showed the proportional popularity of these names.
+
+The dataset originates from the Social Security Administration (SSA), which tracks baby names through Social Security card applications. The SSA publishes this data annually to document naming trends and preferences in the U.S. This dataset was shared by the Tidy Tuesday project on March 22, 2022, as part of an initiative to encourage data analysis and visualization.

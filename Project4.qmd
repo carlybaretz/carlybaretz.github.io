@@ -10,9 +10,7 @@ execute:
   message: false
 ---
 
-To complete this project, I plan to look at the WAI database and select the tables which 
-detail the studies and information about the studies. I then plan on finding the average 
-absorbence of the data and plot that against the frequency of the data. 
+To complete this project, I plan to look at the WAI database and select the tables which detail the studies and information about the studies. I then plan on finding the average absorbence of the data and plot that against the frequency of the data.
 
 ```{r}
 library(mdsr)
@@ -42,7 +40,7 @@ Subjects <- tbl(con_wai, "Subjects")
 SHOW TABLES;
 ```
 
-This table shows all the available tables in the WAI database. 
+This table shows all the available tables in the WAI database.
 
 ```{sql}
 #| connection: con_wai
@@ -50,27 +48,32 @@ SELECT *
 FROM Measurements
 LIMIT 0, 5;
 ```
+
 This table shows what the measurements table looks like and the information it holds.
 
 ```{sql}
 #| connection: con_wai
 SELECT *
 FROM PI_Info
-LIMIT 0, 50;
+LIMIT 0, 1;
 ```
-This is the PI Info table. 
+
+This is the PI Info table.
 
 ```{sql}
 #| connection: con_wai
 SELECT * FROM PI_Info 
 WHERE Identifier = "Abur_2014"; 
 ```
+
 This is one specific row from the PI Info table and it gives details about one specific study
+
 ```{sql}
 #| connection: con_wai
 SELECT * FROM Measurements 
 WHERE Identifier = "Abur_2014"; 
 ```
+
 This is more information about the study.
 
 ```{sql}
@@ -100,7 +103,9 @@ ggplot(aes (x=Frequency, y = mean_absorbance,
 
 
 ```
+
 This graph shows the mean absorbance From each publication in the WAI database
+
 ```{sql}
 #| connection: con_wai
  SELECT p.Identifier, p.Year, p.AuthorsShortList, 
@@ -111,7 +116,8 @@ WHERE p.Identifier IN ("Abur_2014", "Feeney_2017", "Groon_2015" ,"Lewis_2015", "
 "Rosowski_2012", "Shahnaz_2006", "Shaver_2013" , "Sun_2016", "Voss_1994", "Voss_2010", "Werner_2010" ) AND Frequency > 200 AND Frequency < 8000
 GROUP BY Identifier, Instrument;
 ```
-This table shows information about the publications in the database. 
+
+This table shows information about the publications in the database.
 
 ```{sql}
 #| connection: con_wai
@@ -126,7 +132,8 @@ WHERE p.Identifier IN ("Abur_2014", "Feeney_2017", "Groon_2015" ,"Lewis_2015", "
 GROUP BY Identifier, Instrument;
 
 ```
-This table shows information about the publications in the database. 
+
+This table shows information about the publications in the database.
 
 ```{sql}
 #| connection: con_wai
@@ -156,15 +163,18 @@ ggplot(aes (x=Frequency, y = mean_absorbance,
 
 
 ```
-This graph shows the mean absorbance From each publication in the WAI database, 
-with details about measurement and equipement used in each study. 
+
+This graph shows the mean absorbance From each publication in the WAI database, with details about measurement and equipement used in each study.
+
 ```{sql}
 #| connection: con_wai
 SELECT * 
 FROM Subjects
 
 ```
-This table shows the data in the subjects table. 
+
+This table shows the data in the subjects table.
+
 ```{sql}
 #| connection: con_wai
 #| output.var: "graphforQ2"
@@ -179,8 +189,9 @@ GROUP BY m.Identifier, Frequency, Sex;
 ```{r}
 head(graphforQ2)
 ```
-This table shoes the frequency, mean absorbance, and sex of participants for one 
-specific study, Aithal 2013. 
+
+This table shoes the frequency, mean absorbance, and sex of participants for one specific study, Aithal 2013.
+
 ```{r}
 graphforQ2 |>
   filter(Sex == "Female") |>
@@ -196,7 +207,8 @@ ggplot(aes (x=Frequency, y = mean_absorbance,
 
 
 ```
-This graph shows the frequency and absorbance for women in the study. 
+
+This graph shows the frequency and absorbance for women in the study.
 
 ```{r}
 graphforQ2 |>
@@ -212,9 +224,9 @@ ggplot(aes (x=Frequency, y = mean_absorbance,
     y = "Mean Absorbance"  )
 
 ```
-This graph shows the frequency and absorbance for men in the study. 
+
+This graph shows the frequency and absorbance for men in the study.
 
 In this project, I analyzed data from the WAI database to explore the relationship between frequency and absorbance across various studies. I used SQL queries to extract, filter, and calculate the average absorbance values for specific frequencies and grouped the data by study identifiers. These results were then visualized in R using ggplot, with plots on a logarithmic frequency scale to highlight trends. Additionally, I compared absorbance data by sex for a specific study to observe any potential differences, finding that male and female values were the same.
-
 
 I got my data from the WAI Database and the graph is modeled from a graph in this study: https://pmc.ncbi.nlm.nih.gov/articles/PMC7093226/

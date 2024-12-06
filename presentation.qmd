@@ -1,7 +1,7 @@
 ---
-title: "Carly's presentation"
-author: "your name"
-subtitle: "date of presentation"
+title: "Carly's Final Data Science Presentation"
+author: "Carly Baretz"
+subtitle: "December 6, 2024"
 format:
   revealjs:
     scrollable: true
@@ -14,8 +14,104 @@ execute:
   message: false
 ---
 
-## test
+## Salary Comparison of Pitchers: New York Mets vs. New York Yankees (2010)
 
-is this gonna work??
+This analysis investigates salary differences between pitchers from the New York Mets and New York Yankees in the 2010 MLB season
 
-## test 2
+
+MLB data from the openintro package (2010 season)
+
+## MLB Salaries 
+
+```{r}
+#| echo = FALSE  
+
+# Load necessary libraries
+library(tidyverse)
+library(openintro)
+
+# Load the MLB dataset
+data("mlb")
+
+# Data preparation: Calculate average salary by team
+team_salaries <- mlb |>
+  group_by(team) |>
+  summarize(avg_salary = mean(salary, na.rm = TRUE)) |>
+  arrange(desc(avg_salary))
+
+# Bar chart: Average salary by team
+ggplot(team_salaries, aes(x = reorder(team, avg_salary), y = avg_salary)) +
+  geom_bar(stat = "identity", fill = "blue") +
+  coord_flip() +
+  labs(
+    title = "Average MLB Salaries by Team (2010)",
+    x = "Team",
+    y = "Average Salary (in thousands of dollars)"
+  ) 
+
+```
+
+## Mets and Yankees Pitcher Salaries 
+
+```{r}
+
+mlb_pitchers <- mlb |>
+  filter((team == "New York Mets" | team == "New York Yankees") & position == "Pitcher" & !is.na(salary)) |>
+  select(team, salary)
+mlb_pitchers
+```
+
+\* Salaries are represented in the thousands, so 20,144 is actually $20,144,000. 
+
+## Observed Difference
+```{r}
+# Calculate the observed difference in average salary between Mets and Yankees
+obs_diff <- mlb_pitchers |>
+  group_by(team) |>
+  summarize(obs_ave = mean(salary)) |>
+  summarize(obs_ave_diff = diff(obs_ave)) |>
+  pull(obs_ave_diff)
+
+# Check if obs_diff was calculated correctly
+obs_diff
+
+```
+
+## Permutation Test
+```{r}
+perm_data <- function(rep, data) {
+  data |>
+    mutate(salary_perm = sample(salary, replace = FALSE)) |>
+    group_by(team) |>
+    summarize(perm_ave = mean(salary_perm)) |>
+    summarize(perm_ave_diff = diff(perm_ave), rep = rep)
+}
+set.seed(47)
+
+perm_stats <- map(1:500, perm_data, data = mlb_pitchers) |>
+  list_rbind()
+
+perm_stats
+```
+
+## Visualization
+
+```{r}
+#| echo = FALSE 
+
+# Plot the permutation distribution with the observed difference
+ggplot(perm_stats, aes(x = perm_ave_diff)) +
+  geom_histogram(bins = 50, fill = "lightblue", color = "black") +
+  geom_vline(xintercept = obs_diff, color = "red", linetype = "dashed") +
+  labs(
+    title = "Permutation Test: Difference in Mean Salary (Mets vs. Yankees Pitchers)",
+    x = "Difference in Permuted Mean Salary",
+    y = "Frequency",
+    caption = "Source: OpenIntro MLB Dataset"
+  ) 
+```
+## Conclusion 
+
+Pitchers on the Mets earned a higher average salary than Yankees pitchers in 2010. 
+
+HOWEVER, the difference is not statistically significant. 

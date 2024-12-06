@@ -12,7 +12,6 @@ execute:
 
 Netflix is the biggest streaming service in the world, offering a wide range of content in various genres. This analysis examines Netflix's catalog using data from the Tidy Tuesday project (April 20, 2021). I will explore the most prevalent genres on Netflix, patterns in the word count of titles and their use of common terms like "Love," "Story," or "Adventure,"and trends in the growth of Netflix's catalog over time.
 
-
 ```{r}
 library(tidyverse)
 library(ggplot2)
@@ -21,7 +20,6 @@ library(stringr)
 # Suppress warnings and messages
 knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
 ```
-
 
 ```{r}
 netflix_titles <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-04-20/netflix_titles.csv')
@@ -74,8 +72,6 @@ ggplot(title_word_distribution, aes(x = factor(title_word_count), y = count, fil
 
 This graph shows the distribution of number of words in titles on Netflix, showing that most of the titles on Netflix are 2 words long. Additionally, the graph shows the prevalence of titles with 3 common words: love, story, and adventure. The graph shows that most of the titles do not contain "love," "story," or "adventure," but it shows that if the words do appear, they show up in titles ranging from 1 word long to 13 words long.
 
-
-
 ```{r}
 
 netflix_titles <- netflix_titles |>
@@ -99,7 +95,7 @@ ggplot(titles_by_year, aes(x = year_added, y = count)) +
 
 This graph shows the number of titles of shows or movies added to Netflix each year. The first titles were added to Netflix in 2008 and in 2019 the highest number of titles were added to Netflix.
 
-To look for patterns in the dataset to then visualize, I started by identifying how many Netflix titles have a year in the title name, have a colon in the title, or start with "The." 
+To look for patterns in the dataset to then visualize, I started by identifying how many Netflix titles have a year in the title name, have a colon in the title, or start with "The."
 
 ```{r}
 # Add columns based on regular expression patterns
@@ -121,7 +117,8 @@ pattern_summary <- netflix_titles |>
 pattern_summary
 
 ```
-Next I made a bar plot to visualize the amount of Netlfix titles with the given pattern. 
+
+Next I made a bar plot to visualize the amount of Netlfix titles with the given pattern.
 
 ```{r}
 
@@ -149,9 +146,11 @@ ggplot(pattern_data, aes(x = reorder(Pattern, Count), y = Count, fill = Pattern)
   theme_minimal()
 
 ```
-Finally, I made a bar plot to visualize the distribution of years mentioned in Netflix titles. 
 
-the spread of Netflix titles containing years, and the amount of titles with names a year. 
+Finally, I made a bar plot to visualize the distribution of years mentioned in Netflix titles.
+
+the spread of Netflix titles containing years, and the amount of titles with names a year.
+
 ```{r}
 
 # Extract titles with years and summarize their counts
@@ -176,5 +175,4 @@ ggplot(titles_with_years, aes(x = year_in_title, y = count)) +
 
 ```
 
-The dataset was sourced from the Tidy Tuesday project (April 20, 2021) and is originally from Kaggle's Netflix Movies and TV Shows dataset. The dataset aggregates publicly available information on Netflix's catalog, including title, genre, date added, director, cast, and release year. 
-
+The dataset was sourced from the Tidy Tuesday project (April 20, 2021) and is originally from Kaggle's Netflix Movies and TV Shows dataset. The dataset aggregates publicly available information on Netflix's catalog, including title, genre, date added, director, cast, and release year.

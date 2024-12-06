@@ -5,19 +5,56 @@ execute:
   message: false
 ---
 
+Valentine's Day is a widely celebrated occasion known for its associated spending habits on gifts like flowers, candy, and jewelry. This analysis explores data from Tidy Tuesday (February 2024), which provides insights into Valentine's Day consumer behaviors across different demographics in the United States. I will investigate how spending varies by age and gender.
+
 ```{r}
+library(tidyverse) # Load necessary libraries
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) # Suppress warnings and messages
+```
 
+The dataset includes three main tables: historical_spending, gifts_age, and gifts_gender.
 
-library("tidyverse")
+```{r}
+# Load the data 
 historical_spending <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2024/2024-02-13/historical_spending.csv')
 gifts_age <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2024/2024-02-13/gifts_age.csv')
 gifts_gender <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2024/2024-02-13/gifts_gender.csv')
 
-ggplot(data=gifts_age, aes(x= Age, y = Flowers))+ 
-  geom_point()+
-  ggtitle("Valentines Day Buying Habits and Age")
+```
 
+The gifts_age dataset breaks down spending by age group and gift type. Below is a plot showing flower spending across different age groups.
+
+```{r}
+# Plot spending on flowers by age
+gifts_age |>
+  ggplot(aes(x = Age, y = Flowers)) +
+  geom_point() +
+  geom_smooth(method = "loess", color = "green") +
+  labs(
+    title = "Valentine's Day Flower Spending by Age",
+    x = "Age",
+    y = "Spending on Flowers (in dollars)",
+    caption = "Source: Tidy Tuesday Valentine's Data (2024)"
+  ) +
+  theme_minimal()
 
 ```
 
-Where I found the tidy Tuesday (https://github.com/rfordatascience/tidytuesday/tree/master/data)
+The gifts_gender dataset provides insights into how men and women differ in their spending on Valentine's Day gifts.
+
+```{r}
+# Plot spending on flowers by gender
+gifts_gender |>
+  ggplot(aes(x = Gender, y = Flowers, fill = Gender)) +
+  geom_bar(stat = "identity") +
+  labs(
+    title = "Valentine's Day Flower Spending by Gender",
+    x = "Gender",
+    y = "Average Spending on Flowers (in dollars)",
+    caption = "Source: Tidy Tuesday Valentine's Data (2024)"
+  ) +
+  theme_minimal()
+
+```
+
+The datasets used in this analysis were sourced from the Tidy Tuesday Valentine's Day 2024 project. The original data comes from 7,728 U.S. adult consumers, and likely comes from consumer surveys and industry reports related to Valentine's Day shopping habits. Tidy Tuesday curates these datasets for educational purposes, and they may be cleaned or simplified versions of the original data.
