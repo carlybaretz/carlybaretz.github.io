@@ -36,6 +36,7 @@ babynames |>
 Then I filtered he dataset for names with over 80,000 occurrences and visualized their proportions.
 
 ```{r}
+#| eval: true 
 # Filter for names with more than 80,000 instances
 babynames <- babynames |>
   filter(n > 80000)

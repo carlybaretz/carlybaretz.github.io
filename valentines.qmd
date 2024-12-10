@@ -25,6 +25,8 @@ gifts_gender <- readr::read_csv('https://raw.githubusercontent.com/rfordatascien
 The gifts_age dataset breaks down spending by age group and gift type. Below is a plot showing flower spending across different age groups.
 
 ```{r}
+
+#| eval: true 
 # Plot spending on flowers by age
 gifts_age |>
   ggplot(aes(x = Age, y = Flowers)) +
@@ -43,6 +45,8 @@ gifts_age |>
 The gifts_gender dataset provides insights into how men and women differ in their spending on Valentine's Day gifts.
 
 ```{r}
+
+#| eval: true 
 # Plot spending on flowers by gender
 gifts_gender |>
   ggplot(aes(x = Gender, y = Flowers, fill = Gender)) +

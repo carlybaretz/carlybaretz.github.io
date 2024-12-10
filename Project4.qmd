@@ -19,12 +19,12 @@ SQL is a powerful language used for managing and analyzing large datasets stored
 library(mdsr)
 library(dbplyr)
 library(DBI)
+library(RMariaDB)
+library(tidyverse)
 ```
 
 ```{r}
 
-library(RMariaDB)
-library(tidyverse)
 
 con_wai <- dbConnect(
   MariaDB(), host = "scidb.smith.edu",
@@ -39,14 +39,14 @@ Subjects <- tbl(con_wai, "Subjects")
 
 ```
 
-To understand the data structure, I first listed all available tables.
+To understand the data structure, I explored the WAI database by listing all available tables. 
 
 ```{sql}
 #| connection: con_wai
 SHOW TABLES;
 ```
 
-This table shows all the available tables in the WAI database.
+Next I viewed the first few rows of the "Measurements" table, which allows us to understand the variables and structure of the dataset. 
 
 ```{sql}
 #| connection: con_wai
@@ -55,9 +55,7 @@ FROM Measurements
 LIMIT 0, 5;
 ```
 
-
-
-This is the PI Info table.
+Next I only selected information about a specific study. 
 
 ```{sql}
 #| connection: con_wai
@@ -65,7 +63,7 @@ SELECT * FROM PI_Info
 WHERE Identifier = "Abur_2014"; 
 ```
 
-This is one specific row from the PI Info table and it gives details about one specific study
+Next I identified data from the "Measurements" table about a specific study. 
 
 ```{sql}
 #| connection: con_wai
@@ -73,7 +71,7 @@ SELECT * FROM Measurements
 WHERE Identifier = "Abur_2014"; 
 ```
 
-This is more information about the study.
+Next I selected data from the Measurements table, selecting specific Identifiers and filtering rows where Frequency is between 200 and 8000. Then I calculated the base-10 logarithm of Frequency (log_frequency) and the average absorbance (mean_absorbance), and grouped results by Identifier and Frequency.
 
 ```{sql}
 #| connection: con_wai
@@ -88,6 +86,7 @@ GROUP BY Identifier, Frequency;
 
 ```
 
+The plot visualizes how absorbance changes with frequency for given studies
 ```{r}
 graph |>
 ggplot(aes (x=Frequency, y = mean_absorbance, 
@@ -100,10 +99,9 @@ ggplot(aes (x=Frequency, y = mean_absorbance,
     x = "Frequency (Hz)",           
     y = "Mean Absorbance"  )
 
-
 ```
 
-This graph shows the mean absorbance From each publication in the WAI database
+This table links multiple tables in the WAI database by counting distinct ears measured in the study with measurement data. 
 
 ```{sql}
 #| connection: con_wai
@@ -115,15 +113,13 @@ WHERE p.Identifier IN ("Abur_2014", "Feeney_2017", "Groon_2015" ,"Lewis_2015", "
 "Rosowski_2012", "Shahnaz_2006", "Shaver_2013" , "Sun_2016", "Voss_1994", "Voss_2010", "Werner_2010" ) AND Frequency > 200 AND Frequency < 8000
 GROUP BY Identifier, Instrument;
 ```
-
-This table shows information about the publications in the database.
-
+This creates 1 table to combine data from different tables. 
 ```{sql}
 #| connection: con_wai
  SELECT p.Identifier, Year, AuthorsShortList, 
- COUNT(DISTINCT SubjectNumber, Ear) AS ears,
+ COUNT(DISTINCT SubjectNumber, Ear) AS ear_you,
  CONCAT(AuthorsShortList, " (" , year, ") " , "N=" , 
- COUNT(DISTINCT SubjectNumber, Ear), "; ", Instrument) AS Legend 
+ COUNT(DISTINCT SubjectNumber, Ear), "; ", Instrument) AS legend 
 FROM PI_Info AS p 
 LEFT JOIN Measurements AS m ON m.Identifier = p.Identifier 
 WHERE p.Identifier IN ("Abur_2014", "Feeney_2017", "Groon_2015" ,"Lewis_2015", "Liu_2008"
@@ -132,14 +128,14 @@ GROUP BY Identifier, Instrument;
 
 ```
 
-This table shows information about the publications in the database.
+This adds on to the table above, including mean absorbance across frequencies. 
 
 ```{sql}
 #| connection: con_wai
 #| output.var: "graph2"
  SELECT p.Identifier, p.Year, p.AuthorsShortList, Frequency,
  LOG10(Frequency) AS log_frequency, AVG(Absorbance) AS mean_absorbance,
- COUNT(DISTINCT SubjectNumber, Ear) AS ear_u,
+ COUNT(DISTINCT SubjectNumber, Ear) AS ear_you,
  CONCAT(AuthorsShortList, " (" , year, ") ", "N=", COUNT(DISTINCT SubjectNumber, Ear), "; ", Instrument) AS legend
 FROM PI_Info AS p 
 LEFT JOIN Measurements AS m ON m.Identifier = p.Identifier 
@@ -156,14 +152,16 @@ ggplot(aes (x=Frequency, y = mean_absorbance,
   geom_line()+
   scale_x_log10()+
         labs(
-    title = "Mean Absorbance From Each Publication in the WAI Database",   
+    title = "Mean Absorbance From Each Publication in the WAI Database",
+    legend = "",
     x = "Frequency (Hz)",           
-    y = "Mean Absorbance"  )
+    y = "Mean Absorbance",
+    color = NULL)
 
 
 ```
 
-This graph shows the mean absorbance From each publication in the WAI database, with details about measurement and equipement used in each study.
+This looks at all the information in the "Subjects" table. 
 
 ```{sql}
 #| connection: con_wai
@@ -172,14 +170,13 @@ FROM Subjects
 
 ```
 
-This table shows the data in the subjects table.
-
+This calculates mean absorbance for males and females separately in the Aithal 2013 study. 
 ```{sql}
 #| connection: con_wai
 #| output.var: "graphforQ2"
 SELECT Sex, Frequency, AVG(Absorbance) AS mean_absorbance, m.Identifier 
 FROM Subjects AS s 
-RIGHT JOIN Measurements AS m ON m.Identifier = s.Identifier
+RIGHT JOIN Measurements AS m ON m.SubjectNumber = s.SubjectNumber
 WHERE m.Identifier = "Aithal_2013" AND Frequency > 200 AND Frequency < 8000
 GROUP BY m.Identifier, Frequency, Sex;
 
@@ -188,44 +185,27 @@ GROUP BY m.Identifier, Frequency, Sex;
 ```{r}
 head(graphforQ2)
 ```
-
-This table shoes the frequency, mean absorbance, and sex of participants for one specific study, Aithal 2013.
-
-```{r}
-graphforQ2 |>
-  filter(Sex == "Female") |>
-ggplot(aes (x=Frequency, y = mean_absorbance, 
-   color =  Sex,
-   group = Sex)) +
-  geom_line() +
-  scale_x_log10()+
-    labs(
-    title = "Mean Absorbance vs Frequency for Women",   
-    x = "Frequency",           
-    y = "Mean Absorbance"  )
-
-
-```
-
-This graph shows the frequency and absorbance for women in the study.
+This visualizes absorbance trends by gender in the Aithal 2013 study. 
 
 ```{r}
 graphforQ2 |>
-  filter(Sex == "Male") |>
-ggplot(aes (x=Frequency, y = mean_absorbance, 
-   color =  Sex,
-   group = Sex)) +
+  ggplot(aes(
+    x = Frequency,
+    y = mean_absorbance,
+    color = Sex,
+    group = Sex
+  )) +
   geom_line() +
-  scale_x_log10()+
+  scale_x_log10() +
   labs(
-    title = "Mean Absorbance vs Frequency for Men",   
-    x = "Frequency",           
-    y = "Mean Absorbance"  )
-
+    title = "Mean Absorbance Across Frequencies by Gender in 'Aithal_2013' Study", 
+    x = "Frequency",
+    y = "Mean Absorbance", 
+    color = "Gender"  
+  ) +
+  facet_wrap(~Sex)  
 ```
-
-This graph shows the frequency and absorbance for men in the study.
 
 In this project, I analyzed data from the WAI database to explore the relationship between frequency and absorbance across various studies. I used SQL queries to extract, filter, and calculate the average absorbance values for specific frequencies and grouped the data by study identifiers. These results were then visualized in R using ggplot, with plots on a logarithmic frequency scale to highlight trends. Additionally, I compared absorbance data by sex for a specific study to observe any potential differences, finding that male and female values were the same.
 
-I got my data from the WAI Database and the graph is modeled from a graph in this study: https://pmc.ncbi.nlm.nih.gov/articles/PMC7093226/
+I got my data from the WAI Database and the graph is modeled from a graph in this study: Voss, Susan E. Ph.D. Resource Review. Ear and Hearing 40(6):p 1481, November/December 2019. | DOI: 10.1097/AUD.0000000000000790 

@@ -24,4 +24,4 @@ execute:
 
 ![](media/IMG_9953.jpeg){.round-image}
 
-I'm Carly Baretz, a sophomore at Pitzer College from New York City studying Human Centered Design and Data Science!
+I'm Carly Baretz. I'm from New York City and I'm a sophomore at Pitzer College studying Human Centered Design and Data Science!

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Carly Baretz - Project 3</title>
+<title>Carly Baretz - Mets vs Yankees Statistical Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -127,31 +127,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-data-viz" role="button" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Data Viz</span>
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-data-visualization" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Data Visualization</span>
     </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-data-viz">    
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-data-visualization">    
         <li>
     <a class="dropdown-item" href="./valentines.html">
- <span class="dropdown-text">Valentines Day</span></a>
+ <span class="dropdown-text">Valentines Day Dataset</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./babynames.html">
- <span class="dropdown-text">Baby Names</span></a>
+ <span class="dropdown-text">Baby Names Dataset</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="./Project2.html"> 
-<span class="menu-text">Project 2</span></a>
+<span class="menu-text">Netflix Data Analysis</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./Project3.html" aria-current="page"> 
-<span class="menu-text">Project 3</span></a>
+<span class="menu-text">Mets vs Yankees Statistical Analysis</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./Project4.html"> 
-<span class="menu-text">Project 4</span></a>
+<span class="menu-text">Analysis of Scientific Research Data</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./presentation.html"> 
@@ -176,7 +176,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Project 3</h1>
+<h1 class="title">Mets vs Yankees Statistical Analysis</h1>
 </div>
 
 
@@ -315,8 +315,7 @@ Loading required package: usdata</code></pre>
 </div>
 <p>This histogram provides descriptive statistics for the distribution of permuted mean salary differences between Mets and Yankees pitchers, showing the range and central tendency of values generated under the null hypothesis. The p-value indicates the proportion of permuted differences that exceed the observed difference, and the histogram visualizes this distribution, with a red line marking the observed difference for comparison.</p>
 <p>In this analysis, I conducted a permutation test to determine if there is a significant difference in average salary between pitchers on the Mets and Yankees using the mlb dataset from the openintro package. I began by calculating the observed difference in average salary of pitchers between the two teams. Then, I defined a permutation function that randomly shuffles the salaries across teams to simulate the null hypothesis, calculating the difference in mean salary for each permutation. Finally, I repeated this process 500 times to build a distribution of permuted differences, compared the observed difference to this distribution, and computed a p-value to assess significance, visualizing the results in a histogram. This analysis examines the salaries of pitchers from the New York Mets and New York Yankees in the 2010 Major League Baseball season. The population to which these results apply is the pitchers on these two teams during this season.</p>
-<p>Pitchers on the Mets have a higher average salary than pitchers on the Yankees by about $2,548,385.</p>
-<p>The null hypothesis is a claim about the hypothetical population in which there is no systematic difference in mean salary between these teams’ pitchers. While this dataset is limited to 2010, and results cannot be generalized across other seasons or teams without additional data, it provides insight into salary practices for pitchers on two high-profile MLB teams during this year.</p>
+<p>Pitchers on the Mets have a higher average salary than pitchers on the Yankees by about $2,548,385. The null hypothesis is a claim about the hypothetical population in which there is no systematic difference in mean salary between these teams’ pitchers. While this dataset is limited to 2010, and results cannot be generalized across other seasons or teams without additional data, it provides insight into salary practices for pitchers on two high-profile MLB teams during this year.</p>
 <p>However, the p-value of 0.198 from the permutation test suggests that this difference isn’t statistically significant. In other words, the observed difference could reasonably occur by chance in about 20% of random permutations. So, while the Mets pitchers have a slightly higher average salary in this dataset, we don’t have strong evidence to conclude that this difference is meaningful or consistent.</p>
 <p>*In the dataset, salaries are represented in thousands. For example, a value of 400 corresponds to a salary of $400,000, and a value of 20144 represents $20,144,000.</p>
 <p>The data used in this analysis is from the mlb dataset in the openintro R package, which provides data for educational and statistical learning purposes. The dataset contains salary information for Major League Baseball players during the 2010 season.</p>

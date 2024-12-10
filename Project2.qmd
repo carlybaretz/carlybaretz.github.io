@@ -13,6 +13,8 @@ execute:
 Netflix is the biggest streaming service in the world, offering a wide range of content in various genres. This analysis examines Netflix's catalog using data from the Tidy Tuesday project (April 20, 2021). I will explore the most prevalent genres on Netflix, patterns in the word count of titles and their use of common terms like "Love," "Story," or "Adventure,"and trends in the growth of Netflix's catalog over time.
 
 ```{r}
+#| echo: false 
+
 library(tidyverse)
 library(ggplot2)
 library(dplyr)
@@ -45,7 +47,7 @@ ggplot(genres[1:10,], aes(x = reorder(listed_in, -count), y = count)) +
 
 ```
 
-The bar graph above shows the top 10 genres on Netflix by amount of titles. You can see that Netflix largest genre by which is has the most titles is international movies, with Netflix having upwards of 2,500 international movies.
+The bar graph above shows the top 10 genres on Netflix by amount of titles. You can see that Netflix's largest genre by which is has the most titles is international movies, with Netflix having upwards of 2,500 international movies.
 
 ```{r}
 
@@ -118,7 +120,7 @@ pattern_summary
 
 ```
 
-Next I made a bar plot to visualize the amount of Netlfix titles with the given pattern.
+Next I made a bar plot to visualize the amount of Netflix titles with the given pattern.
 
 ```{r}
 
@@ -147,9 +149,7 @@ ggplot(pattern_data, aes(x = reorder(Pattern, Count), y = Count, fill = Pattern)
 
 ```
 
-Finally, I made a bar plot to visualize the distribution of years mentioned in Netflix titles.
-
-the spread of Netflix titles containing years, and the amount of titles with names a year.
+Finally, I made a bar plot to visualize the distribution of years mentioned in Netflix titles. Below is the spread of Netflix titles containing years, and the amount of titles with names a year.
 
 ```{r}
 
