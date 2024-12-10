@@ -1,5 +1,5 @@
 ---
-title: "Project 3"
+title: "Mets vs Yankees Statistical Analysis"
 ---
 
 In professional sports, salary disparities can reveal team strategies and budget allocations. This analysis focuses on the salaries of pitchers from the New York Mets and New York Yankees during the 2010 MLB season. By comparing their average salaries, I aim to understand if either team compensates its pitchers significantly more. I used the MLB dataset from the openintro package, which provides salary data for players across all MLB teams in 2010

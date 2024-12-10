@@ -1,5 +1,5 @@
 ---
-title: "Project 2"
+title: "Netflix Data Analysis"
 description: |
 author: Carly Baretz 
 date: October 2, 2024

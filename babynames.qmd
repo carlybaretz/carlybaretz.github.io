@@ -1,5 +1,5 @@
 ---
-title: "Baby Names"
+title: "Baby Names Data Visualization"
 execute:
   warning: false
   message: false

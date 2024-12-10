@@ -13,9 +13,7 @@ about:
     - text: Github
       href: https://github.com/carlybaretz
     - text: Email
-      href: cbaretz@students.pitzer.edu
-    - text: My Slides
-      href: presentation.html
+      href: mailto:cbaretz@students.pitzer.edu
       
 execute: 
   message: false

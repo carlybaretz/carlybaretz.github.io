@@ -1,7 +1,6 @@
 ---
-title: "Project 4"
+title: "Analysis of Scientific Research Data"
 description: |
-author: Carly Baretz 
 date: November 21, 2024
 format: html
 
@@ -10,15 +9,20 @@ execute:
   message: false
 ---
 
-To complete this project, I plan to look at the WAI database and select the tables which detail the studies and information about the studies. I then plan on finding the average absorbence of the data and plot that against the frequency of the data.
+This project explores data from the Wideband Absorbance Investigation (WAI) database to analyze the relationship between frequency and absorbance in various studies. Using SQL (Structured Query Language), I queried the database to extract and manipulate data, such as calculating average absorbance values at specific frequencies and grouping data by study identifiers. 
+
+SQL is a powerful language used for managing and analyzing large datasets stored in relational databases. After extracting the data, I used R to visualize trends through graphs, including comparisons between male and female participants in a specific study. This project highlights how database analysis and visualization can uncover patterns in scientific research data.
+
 
 ```{r}
+#| echo = FALSE
 library(mdsr)
 library(dbplyr)
 library(DBI)
 ```
 
 ```{r}
+
 library(RMariaDB)
 library(tidyverse)
 
@@ -31,9 +35,11 @@ Measurements <- tbl(con_wai, "Measurements")
 PI_Info <- tbl(con_wai, "PI_Info")
 Subjects <- tbl(con_wai, "Subjects")
 
-# collect(Measurements)
+
 
 ```
+
+To understand the data structure, I first listed all available tables.
 
 ```{sql}
 #| connection: con_wai
@@ -49,14 +55,7 @@ FROM Measurements
 LIMIT 0, 5;
 ```
 
-This table shows what the measurements table looks like and the information it holds.
 
-```{sql}
-#| connection: con_wai
-SELECT *
-FROM PI_Info
-LIMIT 0, 1;
-```
 
 This is the PI Info table.
 

@@ -7,15 +7,17 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - text: "Data Viz"
+      - text: "Data Visualization"
         menu: 
-          - text: "Valentines Day"
+          - text: "Valentines Day Dataset"
             href: valentines.html
-          - text: "Baby Names"
+          - text: "Baby Names Dataset"
             href: babynames.html
-      - Project2.qmd
-      - Project3.qmd
-      - text: "Project 4"
+      - text: "Netflix Data Analysis"
+        href: Project2.html
+      - text: "Mets vs Yankees Statistical Analysis"
+        href: Project3.html
+      - text: "Analysis of Scientific Research Data"
         href: Project4.html
       - presentation.qmd
 
